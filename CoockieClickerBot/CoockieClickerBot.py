@@ -13,10 +13,7 @@ driver = webdriver.Chrome(options = options,service = service)
 
 driver.implicitly_wait(60);
 
-#Mudar variaveis de metodos para campos da classe FacebookBot
-#Mudar o nome das variaveis para ingles
-#Ajustar valores das variaveis
-#Melhorar a passagem de informações no código como: links, grupos e credenciais
+
 class FacebookBot():
 
     def login(self):
@@ -27,7 +24,7 @@ class FacebookBot():
         passwordBox = driver.find_element("xpath", '//*[@id="pass"]')
         loginButton = driver.find_element("xpath", "//button[text()='Entrar']")
         email = 'YourEmail'
-        password = 'YourPass'
+        password = 'YourPassword'
 
         emailBox.send_keys(email);
         passwordBox.send_keys(password);
@@ -40,20 +37,28 @@ class FacebookBot():
 
     def Posting(self):
 
-        group = "//span[text()='League of Legends - Brasil']"
-        writeButton = "//span[text()='Escreva algo...']"
-        textBoxFacebook = "//br[@data-text='true']"
-        publishButton = "//span[text()='Publicar']"
+        groups = ["https://www.facebook.com/groups/1510087715938757", 
+                  "https://www.facebook.com/groups/pedrugo", 
+                  "https://www.facebook.com/groups/282093805203076"]
+        
 
-        driver.find_element("xpath", group).click();
+        for g in groups:
 
-        driver.find_element("xpath", writeButton).click();
+            
+            writeButton = "//span[text()='Escreva algo...']"
+            textBox = "//br[@data-text='true']"
+            publishButton = "//span[text()='Publicar']"
+            text = "Mono sup gold, procuro duo pra subir de elo junto e jogar aos finais de semana, alguem?"
 
-        driver.find_element("xpath", textBoxFacebook).send_keys("Mono sup gold, procuro duo pra subir de elo junto e jogar aos finais de semana, alguem?");
+            driver.get(g)
 
-        driver.find_element("xpath", publishButton).click();
+            driver.find_element("xpath", writeButton).click();
 
-        time.sleep(5);
+            driver.find_element("xpath", textBox).send_keys(text);
+
+            driver.find_element("xpath", publishButton).click();
+
+            time.sleep(5);
 
      
 bot = FacebookBot()
