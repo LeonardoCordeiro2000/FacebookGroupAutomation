@@ -1,3 +1,4 @@
+from re import S
 import time
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -46,7 +47,7 @@ class FacebookBot():
             writeButton = "//span[text()='Escreva algo...']"
             textBox = "//br[@data-text='true']"
             publishButton = "//span[text()='Publicar']"
-            text = "Mono sup gold, procuro duo pra subir de elo junto e jogar aos finais de semana, alguem?"
+            text = "YourPostText"
 
             driver.get(g)
 
@@ -59,14 +60,19 @@ class FacebookBot():
             time.sleep(5);
 
      
-bot = FacebookBot()
+class Scheduling:
+    def __init__(self):
+        self.bot = FacebookBot()
+        self.start()
 
-def run_login():
-    bot.login()
+    def run_login(self):
+        self.bot.login()
 
-schedule.every(30).seconds.do(run_login)
+    def start(self):
+        schedule.every(30).seconds.do(self.run_login)
+        while True:
+            schedule.run_pending()
+            time.sleep(1)
 
-while True:
-    schedule.run_pending()
-    time.sleep(29)
 
+Scheduler = Scheduling()
