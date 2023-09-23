@@ -1,10 +1,8 @@
-from threading import Thread
 import time
 from selenium import webdriver
-from selenium.types import WaitExcTypes
 from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.common.timeouts import Timeouts
 from webdriver_manager.chrome import ChromeDriverManager
+import schedule
 
 service = Service(ChromeDriverManager().install())
 options = webdriver.ChromeOptions()
@@ -62,5 +60,13 @@ class FacebookBot():
 
      
 bot = FacebookBot()
-bot.login()
+
+def run_login():
+    bot.login()
+
+schedule.every(30).seconds.do(run_login)
+
+while True:
+    schedule.run_pending()
+    time.sleep(29)
 
